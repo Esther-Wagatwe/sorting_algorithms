@@ -19,6 +19,8 @@ typedef struct listint_s
 } listint_t;
 
 void swap(int *n, int *m);
+listint_t *swap_current(listint_t *current, listint_t **list);
+listint_t *create_listint(const int *array, size_t size);
 void print_list(const listint_t *list);
 void print_array(const int *array, size_t size);
 void bubble_sort(int *array, size_t size);
