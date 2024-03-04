@@ -53,4 +53,5 @@ int main(void)
     printf("\n");
     print_list(list);
     return (0);
+ }
     

@@ -1,136 +1,67 @@
-#include "betty.h"
-
-void swap_nodes(listint_t **list, listint_t *a, listint_t *b);
-void cocktail_sort_list(listint_t **list);
-listint_t *create_node(int n);
-void insert_node(listint_t **list, int n);
-void print_list(listint_t *list);
-
-void swap_nodes(listint_t **list, listint_t *a, listint_t *b)
+#include "sort.h"
+#include <stdio.h>
+/**
+ *swap_node - swap a node for his previous one
+ *@node: node
+ *@list: node list
+ *Return: return a pointer to a node which was enter it
+ */
+listint_t *swap_node(listint_t *node, listint_t **list)
 {
-if (a->prev)
-a->prev->next = b;
-else
-*list = b;
-if (b->next)
-b->next->prev = a;
+	listint_t *back = node->prev, *current = node;
+	/*NULL, 19, 48, 9, 71, 13, NULL*/
 
-a->next = b->next;
-b->prev = a->prev;
-
-b->next = a;
-a->prev = b;
-
-listint_t *current = *list;
-while (current)
-{
-printf("%d", current->n);
-if (current->next)
-printf(" <-> ");
-current = current->next;
+	back->next = current->next;
+	if (current->next)
+		current->next->prev = back;
+	current->next = back;
+	current->prev = back->prev;
+	back->prev = current;
+	if (current->prev)
+		current->prev->next = current;
+	else
+		*list = current;
+	return (current);
 }
-printf("\n");
-}
-
+/**
+ *cocktail_sort_list - this is a cocktail sort implementation
+ *working on a double linked lists
+ *@list: list
+ */
 void cocktail_sort_list(listint_t **list)
 {
-int swapped = 1;
-listint_t *start = *list;
-listint_t *end = NULL;
+	listint_t *node;
+	int swap_done = 1;
 
-while (swapped)
-{
-swapped = 0;
-listint_t *current = start;
-while (current && current->next != end)
-{
-if (current->n > current->next->n)
-{
-swap_nodes(list, current, current->next);
-swapped = 1;
+	if (list == NULL || (*list) == NULL || (*list)->next == NULL)
+		return;
+	node = *list;
+	while (swap_done == 1)
+	{
+		swap_done = 0;
+		while (node->next)
+		{
+			if (node->n > node->next->n)
+			{
+				node = swap_node(node->next, list);
+				swap_done = 1;
+				print_list(*list);
+			}
+			node = node->next;
+		}
+		if (swap_done == 0)
+			break;
+		swap_done = 0;
+		while (node->prev)
+		{
+			if (node->n < node->prev->n)
+			{
+				node = swap_node(node, list);
+				swap_done = 1;
+				print_list(*list);
+			}
+			else
+				node = node->prev;
+		}
+	}
 }
-else
-{
-current = current->next;
-}
-}
-if (!swapped)
-break;
-end = current;
-while (current && current->prev != start)
-{
-if (current->n < current->prev->n)
-{
-swap_nodes(list, current->prev, current);
-swapped = 1;
-}
-else
-{
-current = current->prev;
-}
-}
-start = current;
-}
-}
-
-listint_t *create_node(int n)
-{
-listint_t *new_node = malloc(sizeof(listint_t));
-if (new_node == NULL)
-{
-fprintf(stderr, "Memory allocation failed\n");
-exit(EXIT_FAILURE);
-}
-new_node->n = n;
-new_node->prev = NULL;
-new_node->next = NULL;
-return new_node;
-}
-
-void insert_node(listint_t **list, int n)
-{
-listint_t *new_node = create_node(n);
-if (*list == NULL)
-{
-*list = new_node;
-}
-else
-{
-listint_t *current = *list;
-while (current->next != NULL)
-{
-current = current->next;
-}
-current->next = new_node;
-new_node->prev = current;
-}
-}
-
-void print_list(listint_t *list)
-{
-while (list)
-{
-printf("%d", list->n);
-if (list->next)
-printf(" <-> ");
-list = list->next;
-}
-printf("\n");
-}
-
-int main()
-{
-listint_t *list = NULL;
-insert_node(&list, 3);
-insert_node(&list, 5);
-insert_node(&list, 1);
-insert_node(&list, 4);
-insert_node(&list, 2);
-printf("Original list: ");
-print_list(list);
-cocktail_sort_list(&list);
-printf("Sorted list: ");
-print_list(list);
-return 0;
-}
-
