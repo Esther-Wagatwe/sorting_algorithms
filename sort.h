@@ -34,4 +34,5 @@ void swap_array(int *array, int elem1, int elem2);
 int max_elem(int *array, size_t size);
 void counting_sort(int *array, size_t size);
 void cocktail_sort_list(listint_t **list);
+void merge_sort(int *array, size_t size);
 #endif
