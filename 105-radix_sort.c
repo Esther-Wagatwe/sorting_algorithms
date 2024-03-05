@@ -57,7 +57,7 @@ void countSort(int *arr, size_t n, int exp, int *output)
 }
 
 /**
-* radix_sort - The main function to that sorts arr[]
+* radix_sort - The function that sorts arr[]
 * of size n using Radix Sort
 * @array: array
 * @size: size of the array
