@@ -9,7 +9,7 @@ What you should learn from this project:
 * What is a stable sorting algorithm
 
 ---
-##Tasks
+## Tasks
 
 ### [0. Bubble sort](./0-bubble_sort.c)
 * Write a function that sorts an array of integers in ascending order using the Bubble sort algorithm
@@ -59,7 +59,7 @@ What you should learn from this project:
 * Write a function that sorts an array of integers in ascending order using the Quick sort algorithm
 
 
-### [12. Dealer] (./1000-sort_deck.c)
+### [12. Dealer](./1000-sort_deck.c)
 * Write a function that sorts a deck of cards.
 
 ---
